@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_18_201343) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_18_220226) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -49,6 +49,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_201343) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "notch_statuses", force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "notch_id", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notch_id"], name: "index_notch_statuses_on_notch_id"
+    t.index ["student_id", "notch_id"], name: "index_notch_statuses_on_student_id_and_notch_id", unique: true
+    t.index ["student_id"], name: "index_notch_statuses_on_student_id"
+  end
+
+  create_table "notches", force: :cascade do |t|
+    t.string "description"
+    t.integer "grade"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -57,4 +75,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_18_201343) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "notch_statuses", "notches"
+  add_foreign_key "notch_statuses", "students"
 end
