@@ -8,3 +8,16 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+/* app/assets/stylesheets/application.css */
+.profile-thumbnail {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+  }
+  
+  .profile-small {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+  }
+  
